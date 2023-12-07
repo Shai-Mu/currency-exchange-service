@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema#",
+    "type": "object",
+    "definitions": {
+        "internalErrorResponse": {
+            "title": "InternalErrorResponse",
+            "description": "Модель ошибки сервиса, возникшей при выполнении операций.",
+            "type": "object",
+            "required": [
+                "errorMessage"
+            ],
+            "properties": {
+                "errorMessage": {
+                    "description": "Текстовое описание ошибки.",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

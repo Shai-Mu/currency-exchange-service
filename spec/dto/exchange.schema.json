@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema#",
+    "type": "object",
+    "definitions": {
+        "exchange": {
+            "title": "Exchange",
+            "description": "Модель, представляющая операцию по обмену валют.",
+            "type": "object",
+            "required": [
+                "userId",
+                "sourceCurrencyId",
+                "targetCurrencyId",
+                "currencyAmountForExchange",
+                "exchangeRate"
+            ],
+            "properties": {
+                "sourceCurrencyId": {
+                    "description": "Идентификатор валюты, в которой покупается другая валюта.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "targetCurrencyId": {
+                    "description": "Идентификатор покупаемой валюты.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "currencyAmountForExchange": {
+                    "description": "Количество исходной валюты, которую необходимо перевести.",
+                    "type": "number"
+                },
+                "exchangeRate": {
+                    "description": "Валютный курс, в котором будет происходить операция обмена. Под курсом понимается количество покупаемой валюты, доступной при покупке на единицу исходной валюты.",
+                    "type": "number"
+                },
+                "exchangeFeeRate": {
+                    "nullable": true,
+                    "description": "Процент комиссии.",
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

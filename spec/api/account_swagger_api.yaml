@@ -1,0 +1,127 @@
+﻿openapi: 3.0.3
+
+info:
+  title: Счета
+  version: 1.0.0
+
+tags:
+  - name: Accounts
+    description: Управление счетами пользователя.
+  - name: Exchange
+    description: Проведение операций обмена валют.
+
+paths:
+  /api/users/{id}/exchange:
+    post:
+      tags:
+        - Exchange
+      operationId: makeExchange
+      summary: Совершить обмен валют.
+      parameters:
+        - in: path
+          name: id
+          description: Идентификатор пользователя, для которого выполняется обмен.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Exchange'
+      responses:
+        '200':
+          description: Операция выполнена.
+        '400':
+          description: Ошибка валидации.
+        '500':
+          description: Ошибка на стороне сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalErrorResponse'
+
+  /api/users/{id}/accounts:
+    get:
+      tags:
+        - Accounts
+      operationId: getUserAccounts
+      summary: Получить счета пользователя.
+      parameters:
+        - in: path
+          name: id
+          description: Идентификатор пользователя.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Пользователь получен.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccounts'
+        '404':
+          description: Пользователь с указанным Id не существует.
+        '500':
+          description: Ошибка на стороне сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalErrorResponse'
+
+  /api/users/{userId}/accounts/{currencyId}:
+    put:
+      tags:
+        - Accounts
+      operationId: updateUserAccountBalance
+      summary: Изменить количество валюты на счёте.
+      parameters:
+        - in: path
+          name: userId
+          description: Идентификатор пользователя, для которого выполняется изменение.
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: currencyId
+          description: Идентификатор валюты, для которой выполняется изменение.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Обновление выполнено успешно.
+        '404':
+          description: Пользователь с указанным Id не существует.
+        '500':
+          description: Ошибка на стороне сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalErrorResponse'
+
+  
+
+components:
+  schemas:
+    Exchange:
+      $ref: '../DTO/exchange.schema.json#/definitions/exchange'
+    UserAccounts:
+      $ref: '../DTO/user-accounts.schema.json#/definitions/userAccounts'
+    InternalErrorResponse:
+      $ref: '../DTO/internal-error-response.schema.json#/definitions/internalErrorResponse'
+    Account:
+      $ref: '../DTO/account.schema.json#/definitions/account'
+

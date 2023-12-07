@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema#",
+    "type": "object",
+    "definitions": {
+        "userAccounts": {
+            "title": "UserAccounts",
+            "description": "Модель списка счетов пользователя.",
+            "type": "object",
+            "required": [
+                "userId",
+                "accounts"
+            ],
+            "properties": {
+                "userId": {
+                    "description": "Идентификатор пользователя.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "accounts": {
+                    "description": "Массив счетов пользователя.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "account.schema.json#/definitions/account"
+                    }
+                }
+            }
+        }
+    }
+}

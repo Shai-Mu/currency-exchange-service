@@ -1,0 +1,71 @@
+﻿openapi: 3.0.3
+
+info:
+  title: Валюты
+  version: 1.0.0
+
+tags:
+  - name: Currency
+    description: Управление валютами.
+
+paths:
+  /api/currency/{id}:
+    post:
+      tags:
+        - Сurrency
+      operationId: createCurrency
+      summary: Создать валюту.
+      parameters:
+        - in: path
+          name: id
+          description: Идентификатор валюты.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Валюта создана.
+        '409':
+          description: Валюта с указанным Id уже существует.
+        '500':
+          description: Ошибка на стороне сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalErrorResponse'
+
+    delete:
+      tags:
+        - Сurrency
+      operationId: deleteCurrency
+      summary: Удалить валюту.
+      parameters:
+        - in: path
+          name: id
+          description: Идентификатор валюты.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Валюта удалена.
+        '404':
+          description: Валюта с указанным Id не существует.
+        '500':
+          description: Ошибка на стороне сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalErrorResponse'
+
+  
+
+components:
+  schemas:
+    Currency:
+      $ref: '../DTO/currency.schema.json#/definitions/currency'
+    InternalErrorResponse:
+      $ref: '../DTO/internal-error-response.schema.json#/definitions/internalErrorResponse'
+

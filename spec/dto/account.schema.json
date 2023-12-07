@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema#",
+    "type": "object",
+    "definitions": {
+        "account": {
+            "title": "Account",
+            "description": "Модель пользовательского счёта в определённой валюте.",
+            "type": "object",
+            "required": [
+                "currencyId",
+                "balance"
+            ],
+            "properties": {
+                "currencyId": {
+                    "readOnly": true,
+                    "description": "Идентификатор валюты, в которой был открыт счёт.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "balance": {
+                    "description": "Количество валюты, находящейся на данном счёте.",
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema#",
+    "type": "object",
+    "definitions": {
+        "currency": {
+            "title": "Currency",
+            "description": "Модель валюты.",
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Идентификатор валюты.",
+                    "type": "string",
+                    "format": "uuid"
+                }
+            }
+        }
+    }
+}
